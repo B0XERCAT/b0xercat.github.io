@@ -311,17 +311,28 @@ section {
 }
 
 .project-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
     color: var(--text-color);
-    text-decoration: none;
     font-size: 14px;
     letter-spacing: 2px;
     border-bottom: 1px solid var(--text-color);
     padding-bottom: 5px;
     transition: var(--transition);
+    text-transform: uppercase;
+    text-decoration: none;
 }
 
 .project-link:hover {
     letter-spacing: 4px;
+}
+
+.project-link:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
 }
 
 .project-info {
@@ -401,6 +412,156 @@ section {
     letter-spacing: 1px;
 }
 
+/* Modal */
+body.modal-open {
+    overflow: hidden;
+}
+
+.project-modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background: rgba(0, 0, 0, 0.85);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10000;
+}
+
+.project-modal-overlay.is-active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.project-modal {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    background: var(--card-bg-color);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.modal-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 32px;
+    padding: 48px;
+}
+
+.modal-media {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.modal-image {
+    width: 100%;
+    height: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.modal-image.is-hidden {
+    display: none;
+}
+
+.modal-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: var(--text-color);
+}
+
+.modal-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.modal-role {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+
+.modal-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stack-chip {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 212, 0, 0.35);
+    background: rgba(255, 212, 0, 0.12);
+    color: var(--primary-color);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.modal-description {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--accent-color);
+}
+
+.modal-actions {
+    margin-top: auto;
+}
+
+.modal-close-secondary {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 12px 28px;
+    border-radius: 999px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+}
+
+.modal-close-secondary:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.modal-close-secondary:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 32px;
+    cursor: pointer;
+    line-height: 1;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--primary-color);
+}
+
+.modal-close:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero {
@@ -438,6 +599,29 @@ section {
     .contact-links {
         flex-direction: column;
         gap: 20px;
+    }
+
+    .project-modal {
+        border-radius: 16px;
+    }
+
+    .modal-content {
+        grid-template-columns: 1fr;
+        padding: 32px 24px;
+        gap: 24px;
+    }
+
+    .modal-media {
+        max-height: 240px;
+    }
+
+    .modal-image {
+        max-height: 240px;
+    }
+
+    .modal-close {
+        top: 12px;
+        right: 16px;
     }
 }
 

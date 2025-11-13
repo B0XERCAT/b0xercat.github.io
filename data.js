@@ -18,7 +18,11 @@ const portfolioData = {
                         title: 'Project Title 1',
                         description: '프로젝트 설명',
                         link: '#',
-                        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1280&q=80&sat=-30&sig=1',
+                        stack: ['React', 'TypeScript', 'GSAP'],
+                        role: 'Frontend Developer',
+                        detail: '반응형 인터랙티브 웹 애플리케이션으로, GSAP을 활용해 자연스러운 모션과 사용자 경험을 구현했습니다.'
                     },
                     {
                         overlayTitle: 'Project 2',
@@ -26,7 +30,11 @@ const portfolioData = {
                         title: 'Project Title 2',
                         description: '프로젝트 설명',
                         link: '#',
-                        gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+                        gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                        image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1280&q=80&sat=-30&sig=2',
+                        stack: ['Next.js', 'Styled-Components', 'Vercel'],
+                        role: 'Full-stack Developer',
+                        detail: '디자인 시스템부터 배포까지 담당하며, 모듈화된 컴포넌트와 서버사이드 렌더링을 적용했습니다.'
                     },
                     {
                         overlayTitle: 'Project 3',
@@ -34,7 +42,11 @@ const portfolioData = {
                         title: 'Project Title 3',
                         description: '프로젝트 설명',
                         link: '#',
-                        gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+                        gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                        image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1280&q=80&sat=-30&sig=3',
+                        stack: ['Vue', 'Pinia', 'Firebase'],
+                        role: 'Frontend Engineer',
+                        detail: '실시간 데이터가 필요한 프로젝트로, Firebase를 이용해 빠른 프로토타이핑과 배포를 진행했습니다.'
                     },
                     {
                         overlayTitle: 'Project 4',
@@ -42,7 +54,11 @@ const portfolioData = {
                         title: 'Project Title 4',
                         description: '프로젝트 설명',
                         link: '#',
-                        gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+                        gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                        image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1280&q=80&sat=-30&sig=4',
+                        stack: ['Svelte', 'Tailwind CSS', 'Supabase'],
+                        role: 'Product Engineer',
+                        detail: '간결한 코드와 빠른 성능을 목표로 Svelte를 도입했고, Supabase로 백엔드를 구성했습니다.'
                     }
                 ]
             }

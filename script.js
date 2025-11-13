@@ -1,3 +1,8 @@
+let projectDataStore = [];
+let projectModalInstance = null;
+let projectModalKeyListenerAttached = false;
+let lastFocusedElementBeforeModal = null;
+
 // DOM 생성 유틸리티
 const DOMRenderer = {
     // 히어로 섹션 생성
@@ -58,14 +63,14 @@ const DOMRenderer = {
         const projectsSection = document.createElement('section');
         projectsSection.id = section.id;
         projectsSection.className = 'projects';
-        
-        const projects = section.content.projects.map(project => `
-            <div class="project-card">
+
+        const projects = section.content.projects.map((project, index) => `
+            <div class="project-card" data-project-index="${index}" role="button" tabindex="0" aria-label="${project.title} 상세 보기">
                 <div class="project-image" style="background: ${project.gradient}">
                     <div class="project-overlay">
                         <h3>${project.overlayTitle}</h3>
                         <p>${project.overlayDescription}</p>
-                        <a href="${project.link}" class="project-link">View Project →</a>
+                        <button type="button" class="project-link" data-project-trigger>View Details →</button>
                     </div>
                 </div>
                 <div class="project-info">
@@ -147,6 +152,7 @@ function initPage() {
                 break;
             case 'projects':
                 sectionElement = DOMRenderer.createProjects(section);
+                projectDataStore = section.content.projects.slice();
                 break;
             case 'contact':
                 sectionElement = DOMRenderer.createContact(section);
@@ -162,6 +168,9 @@ function initPage() {
     const footer = DOMRenderer.createFooter(portfolioData.footer);
     document.body.appendChild(footer);
     
+    // 프로젝트 모달 초기화
+    initProjectModal(projectDataStore);
+
     // 페이지 초기화 완료 후 애니메이션 초기화
     // animations.js가 로드된 후에 실행되도록 약간의 지연 추가
     setTimeout(() => {
@@ -258,3 +267,147 @@ function initCustomCursor() {
         init();
     }
 })();
+
+// 프로젝트 모달 생성
+function createProjectModal() {
+    const overlay = document.createElement('div');
+    overlay.className = 'project-modal-overlay';
+    overlay.setAttribute('aria-hidden', 'true');
+
+    overlay.innerHTML = `
+        <div class="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal__title">
+            <button type="button" class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-content">
+                <div class="modal-media">
+                    <img src="" alt="" class="modal-image" />
+                </div>
+                <div class="modal-details">
+                    <h3 id="project-modal__title" class="modal-title"></h3>
+                    <p class="modal-role"></p>
+                    <div class="modal-stack"></div>
+                    <p class="modal-description"></p>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const closeButtons = overlay.querySelectorAll('.modal-close, .modal-close-secondary');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => closeProjectModal());
+    });
+
+    overlay.addEventListener('click', (event) => {
+        if (event.target === overlay) {
+            closeProjectModal();
+        }
+    });
+
+    if (!projectModalKeyListenerAttached) {
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && overlay.classList.contains('is-active')) {
+                closeProjectModal();
+            }
+        });
+        projectModalKeyListenerAttached = true;
+    }
+
+    return {
+        overlay,
+        media: overlay.querySelector('.modal-image'),
+        title: overlay.querySelector('.modal-title'),
+        role: overlay.querySelector('.modal-role'),
+        stack: overlay.querySelector('.modal-stack'),
+        description: overlay.querySelector('.modal-description'),
+        closeButton: overlay.querySelector('.modal-close'),
+        secondaryCloseButton: overlay.querySelector('.modal-close-secondary'),
+        lastFocusedElement: null
+    };
+}
+
+function openProjectModal(project) {
+    if (!project) return;
+
+    if (!projectModalInstance) {
+        projectModalInstance = createProjectModal();
+    }
+
+    const { overlay, media, title, role, stack, description } = projectModalInstance;
+
+    lastFocusedElementBeforeModal = document.activeElement;
+    projectModalInstance.lastFocusedElement = lastFocusedElementBeforeModal;
+
+    if (project.image) {
+        media.src = project.image;
+        media.alt = `${project.title} 대표 이미지`;
+        media.classList.remove('is-hidden');
+    } else {
+        media.src = '';
+        media.alt = '';
+        media.classList.add('is-hidden');
+    }
+
+    title.textContent = project.title;
+    role.textContent = project.role || '';
+    description.textContent = project.detail || '';
+    stack.innerHTML = Array.isArray(project.stack)
+        ? project.stack.map(item => `<span class="stack-chip">${item}</span>`).join('')
+        : '';
+
+    overlay.classList.add('is-active');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    overlay.scrollTop = 0;
+
+    if (projectModalInstance.closeButton) {
+        projectModalInstance.closeButton.focus();
+    }
+}
+
+function closeProjectModal() {
+    if (!projectModalInstance) return;
+    const { overlay, media, stack, title, role, description } = projectModalInstance;
+    overlay.classList.remove('is-active');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    media.src = '';
+    stack.innerHTML = '';
+    title.textContent = '';
+    role.textContent = '';
+    description.textContent = '';
+
+    if (projectModalInstance.lastFocusedElement) {
+        projectModalInstance.lastFocusedElement.focus({ preventScroll: true });
+        projectModalInstance.lastFocusedElement = null;
+    }
+}
+
+function initProjectModal(projects) {
+    if (!Array.isArray(projects) || projects.length === 0) return;
+
+    const projectCards = document.querySelectorAll('.project-card');
+
+    projectCards.forEach((card) => {
+        if (card.dataset.modalBound === 'true') return;
+        card.dataset.modalBound = 'true';
+
+        const openModal = () => {
+            const index = Number(card.dataset.projectIndex);
+            const project = projects[index];
+            openProjectModal(project);
+        };
+
+        card.addEventListener('click', (event) => {
+            event.preventDefault();
+            openModal();
+        });
+
+        card.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openModal();
+            }
+        });
+    });
+}
