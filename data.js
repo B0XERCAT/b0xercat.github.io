@@ -74,7 +74,7 @@ const portfolioData = {
         }
     ],
     footer: {
-        text: '© 2024 Portfolio. All rights reserved.'
+        text: '© 2025 Portfolio. All rights reserved.'
     }
 };
 
