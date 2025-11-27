@@ -182,7 +182,7 @@ function initProjectAnimations() {
             gsap.from(overlay.children, {
                 duration: 0.5,
                 y: 20,
-                opacity: 0,
+                opacity: 0.5,
                 stagger: 0.1,
                 delay: 0.2,
                 ease: 'power2.out'

@@ -4,7 +4,7 @@ const portfolioData = {
         id: 'home',
         title: ['안녕하세요!'],
         description: '작은 순간에 몰입하고, 소소한 성장을 쌓아가는 개발자 권서진입니다.',
-        image: './cat.jpeg'
+        image: './images/cat.jpeg'
     },
     sections: [
         {
@@ -14,52 +14,31 @@ const portfolioData = {
             content: {
                 projects: [
                     {
-                        overlayTitle: 'Project 1',
-                        overlayDescription: '웹 애플리케이션',
-                        title: 'Project Title 1',
-                        description: '프로젝트 설명',
-                        link: '#',
-                        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1280&q=80&sat=-30&sig=1',
-                        stack: ['React', 'TypeScript', 'GSAP'],
+                        title: '코드당',
+                        description: '성균관대학교 온라인 저지 플랫폼',
+                        cardImage: './images/codedang-card.png',
+                        modalImage: './images/codedang-screen.png',
+                        stack: ['TypeScript', 'React', 'Next.js'],
                         role: 'Frontend Developer',
                         detail: '반응형 인터랙티브 웹 애플리케이션으로, GSAP을 활용해 자연스러운 모션과 사용자 경험을 구현했습니다.'
                     },
                     {
-                        overlayTitle: 'Project 2',
-                        overlayDescription: '웹 애플리케이션',
-                        title: 'Project Title 2',
-                        description: '프로젝트 설명',
-                        link: '#',
-                        gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                        image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1280&q=80&sat=-30&sig=2',
-                        stack: ['Next.js', 'Styled-Components', 'Vercel'],
+                        title: '코밋 웹사이트',
+                        description: '동아리 스터디 모집 플랫폼',
+                        cardImage: './images/comit-card.png',
+                        modalImage: './images/comit-screen.png',
+                        stack: ['React', 'Next.js', 'Spring Boot'],
                         role: 'Full-stack Developer',
                         detail: '디자인 시스템부터 배포까지 담당하며, 모듈화된 컴포넌트와 서버사이드 렌더링을 적용했습니다.'
                     },
                     {
-                        overlayTitle: 'Project 3',
-                        overlayDescription: '웹 애플리케이션',
-                        title: 'Project Title 3',
+                        title: '네 글자 퀴즈',
                         description: '프로젝트 설명',
-                        link: '#',
-                        gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                        image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1280&q=80&sat=-30&sig=3',
-                        stack: ['Vue', 'Pinia', 'Firebase'],
+                        cardImage: './images/4letters-card.png',
+                        modalImage: './images/4letters-screen.png',
+                        stack: ['Vue', 'Firebase'],
                         role: 'Frontend Engineer',
                         detail: '실시간 데이터가 필요한 프로젝트로, Firebase를 이용해 빠른 프로토타이핑과 배포를 진행했습니다.'
-                    },
-                    {
-                        overlayTitle: 'Project 4',
-                        overlayDescription: '웹 애플리케이션',
-                        title: 'Project Title 4',
-                        description: '프로젝트 설명',
-                        link: '#',
-                        gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                        image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1280&q=80&sat=-30&sig=4',
-                        stack: ['Svelte', 'Tailwind CSS', 'Supabase'],
-                        role: 'Product Engineer',
-                        detail: '간결한 코드와 빠른 성능을 목표로 Svelte를 도입했고, Supabase로 백엔드를 구성했습니다.'
                     }
                 ]
             }

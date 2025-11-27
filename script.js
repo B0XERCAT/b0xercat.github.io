@@ -69,21 +69,20 @@ const DOMRenderer = {
         projectsSection.id = section.id;
         projectsSection.className = 'projects';
 
-        const projects = section.content.projects.map((project, index) => `
+        const projects = section.content.projects.map((project, index) => {
+            const cardImage = project.cardImage || project.image || project.modalImage;
+            return `
             <div class="project-card" data-project-index="${index}" role="button" tabindex="0" aria-label="${project.title} 상세 보기">
-                <div class="project-image" style="background: ${project.gradient}">
-                    <div class="project-overlay">
-                        <h3>${project.overlayTitle}</h3>
-                        <p>${project.overlayDescription}</p>
-                        <button type="button" class="project-link" data-project-trigger>View Details →</button>
-                    </div>
+                <div class="project-image">
+                    ${cardImage ? `<img src="${cardImage}" alt="${project.title} 카드 이미지" loading="lazy" />` : '<div class="project-image-fallback"></div>'}
                 </div>
                 <div class="project-info">
                     <h3>${project.title}</h3>
                     <p>${project.description}</p>
                 </div>
             </div>
-        `).join('');
+        `;
+        }).join('');
         
         projectsSection.innerHTML = `
             <div class="container">
@@ -343,8 +342,10 @@ function openProjectModal(project) {
     lastFocusedElementBeforeModal = document.activeElement;
     projectModalInstance.lastFocusedElement = lastFocusedElementBeforeModal;
 
-    if (project.image) {
-        media.src = project.image;
+    const modalImage = project.modalImage || project.detailImage || project.image || project.cardImage;
+
+    if (modalImage) {
+        media.src = modalImage;
         media.alt = `${project.title} 대표 이미지`;
         media.classList.remove('is-hidden');
     } else {
