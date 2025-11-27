@@ -224,7 +224,7 @@ function initProjectAnimations() {
             duration: 0.8,
             y: 50,
             opacity: 0,
-            delay: index * 0.15,
+            delay: index * 0.25,
             ease: 'power2.out'
         });
     });
