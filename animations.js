@@ -10,6 +10,8 @@ if (typeof gsap !== 'undefined') {
 let animationsInitialized = false;
 let heroAnimationStarted = false;
 let heroTimelineInstance = null;
+let heroBlinkTimeline = null;
+let heroBlinkDelayCall = null;
 
 // 로더 애니메이션
 function initLoader() {
@@ -48,6 +50,7 @@ function initHeroAnimation() {
     if (heroTimelineInstance) {
         heroTimelineInstance.kill();
     }
+    stopHeroBlinkAnimation();
     
     const heroTitleLines = gsap.utils.toArray('.hero-title .line');
     
@@ -83,6 +86,63 @@ function initHeroAnimation() {
         opacity: 1,
         ease: 'power2.out'
     }, "-=0.4");
+    
+    // 히어로 이미지 깜빡임 애니메이션 시작
+    heroTimelineInstance.call(() => {
+        startHeroBlinkAnimation();
+    }, null, "+=0.2");
+}
+
+// 히어로 이미지 깜빡임 애니메이션
+function startHeroBlinkAnimation() {
+    const heroImage = document.querySelector('.hero-media img');
+    
+    if (!heroImage || !gsap) {
+        return;
+    }
+
+    const blink = () => {
+        heroBlinkTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+        heroBlinkTimeline.set(heroImage, {
+            transformOrigin: '50% 45%',
+            willChange: 'transform'
+        });
+
+        heroBlinkTimeline
+            .to(heroImage, {
+                duration: 0.12,
+                scaleY: 0.08,
+                yPercent: 1.5,
+                ease: 'power4.in'
+            })
+            .to(heroImage, {
+                duration: 0.18,
+                scaleY: 1,
+                yPercent: 0,
+                ease: 'power3.out'
+            })
+            .call(scheduleNextBlink);
+    };
+
+    const scheduleNextBlink = () => {
+        if (heroBlinkDelayCall) {
+            heroBlinkDelayCall.kill();
+        }
+        heroBlinkDelayCall = gsap.delayedCall(gsap.utils.random(3, 8), blink);
+    };
+
+    scheduleNextBlink();
+}
+
+function stopHeroBlinkAnimation() {
+    if (heroBlinkTimeline) {
+        heroBlinkTimeline.kill();
+        heroBlinkTimeline = null;
+    }
+    if (heroBlinkDelayCall) {
+        heroBlinkDelayCall.kill();
+        heroBlinkDelayCall = null;
+    }
 }
 
 // 섹션 헤더 애니메이션
