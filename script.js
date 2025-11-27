@@ -290,6 +290,18 @@ function createProjectModal() {
                     <p class="modal-role"></p>
                     <div class="modal-stack"></div>
                     <p class="modal-description"></p>
+                    <div class="modal-links">
+                        <a class="modal-link-icon modal-link--github" href="#" target="_blank" rel="noopener" aria-label="GitHub 링크">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.93c.58.11.79-.25.79-.56v-2.16c-3.2.7-3.88-1.38-3.88-1.38-.53-1.37-1.28-1.74-1.28-1.74-1.05-.71.08-.7.08-.7 1.16.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.3 1.2-3.11-.12-.29-.52-1.48.11-3.09 0 0 .97-.31 3.18 1.19a10.95 10.95 0 0 1 5.78 0c2.2-1.5 3.17-1.19 3.17-1.19.63 1.61.23 2.8.11 3.09.75.81 1.2 1.85 1.2 3.11 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.07.78 2.16v3.19c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                            </svg>
+                        </a>
+                        <a class="modal-link-icon modal-link--live" href="#" target="_blank" rel="noopener" aria-label="라이브 사이트 링크">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M5 4h6a1 1 0 0 1 0 2H6v12h12v-5a1 1 0 1 1 2 0v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm13-1h5a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.41l-8.3 8.3a1 1 0 0 1-1.4-1.42L20.58 5H18a1 1 0 1 1 0-2Z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -325,6 +337,8 @@ function createProjectModal() {
         stack: overlay.querySelector('.modal-stack'),
         description: overlay.querySelector('.modal-description'),
         closeButton: overlay.querySelector('.modal-close'),
+        githubLink: overlay.querySelector('.modal-link--github'),
+        liveLink: overlay.querySelector('.modal-link--live'),
         secondaryCloseButton: overlay.querySelector('.modal-close-secondary'),
         lastFocusedElement: null
     };
@@ -337,7 +351,7 @@ function openProjectModal(project) {
         projectModalInstance = createProjectModal();
     }
 
-    const { overlay, media, title, role, stack, description } = projectModalInstance;
+    const { overlay, media, title, role, stack, description, githubLink, liveLink } = projectModalInstance;
 
     lastFocusedElementBeforeModal = document.activeElement;
     projectModalInstance.lastFocusedElement = lastFocusedElementBeforeModal;
@@ -361,6 +375,29 @@ function openProjectModal(project) {
         ? project.stack.map(item => `<span class="stack-chip">${item}</span>`).join('')
         : '';
 
+    const githubUrl = project.links?.github || project.github || '';
+    const liveUrl = project.links?.live || project.live || '';
+
+    if (githubLink) {
+        if (githubUrl) {
+            githubLink.href = githubUrl;
+            githubLink.classList.remove('is-hidden');
+        } else {
+            githubLink.href = '#';
+            githubLink.classList.add('is-hidden');
+        }
+    }
+
+    if (liveLink) {
+        if (liveUrl) {
+            liveLink.href = liveUrl;
+            liveLink.classList.remove('is-hidden');
+        } else {
+            liveLink.href = '#';
+            liveLink.classList.add('is-hidden');
+        }
+    }
+
     overlay.classList.add('is-active');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
@@ -373,7 +410,7 @@ function openProjectModal(project) {
 
 function closeProjectModal() {
     if (!projectModalInstance) return;
-    const { overlay, media, stack, title, role, description } = projectModalInstance;
+    const { overlay, media, stack, title, role, description, githubLink, liveLink } = projectModalInstance;
     overlay.classList.remove('is-active');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('modal-open');
@@ -382,6 +419,14 @@ function closeProjectModal() {
     title.textContent = '';
     role.textContent = '';
     description.textContent = '';
+    if (githubLink) {
+        githubLink.href = '#';
+        githubLink.classList.add('is-hidden');
+    }
+    if (liveLink) {
+        liveLink.href = '#';
+        liveLink.classList.add('is-hidden');
+    }
 
     if (projectModalInstance.lastFocusedElement) {
         projectModalInstance.lastFocusedElement.focus({ preventScroll: true });

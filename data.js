@@ -20,7 +20,11 @@ const portfolioData = {
                         modalImage: './images/codedang-screen.png',
                         stack: ['TypeScript', 'React', 'Next.js'],
                         role: 'Frontend Developer',
-                        detail: '반응형 인터랙티브 웹 애플리케이션으로, GSAP을 활용해 자연스러운 모션과 사용자 경험을 구현했습니다.'
+                        detail: '반응형 인터랙티브 웹 애플리케이션으로, GSAP을 활용해 자연스러운 모션과 사용자 경험을 구현했습니다.',
+                        links: {
+                            github: 'https://github.com/skkuding/codedang',
+                            live: 'https://codedang.com'
+                        }
                     },
                     {
                         title: '코밋 웹사이트',
@@ -29,7 +33,11 @@ const portfolioData = {
                         modalImage: './images/comit-screen.png',
                         stack: ['React', 'Next.js', 'Spring Boot'],
                         role: 'Full-stack Developer',
-                        detail: '디자인 시스템부터 배포까지 담당하며, 모듈화된 컴포넌트와 서버사이드 렌더링을 적용했습니다.'
+                        detail: '디자인 시스템부터 배포까지 담당하며, 모듈화된 컴포넌트와 서버사이드 렌더링을 적용했습니다.',
+                        links: {
+                            github: 'https://github.com/skku-comit/comit-website',
+                            live: 'https://skku-comit.dev'
+                        }
                     },
                     {
                         title: '네 글자 퀴즈',
@@ -38,7 +46,11 @@ const portfolioData = {
                         modalImage: './images/4letters-screen.png',
                         stack: ['Vue', 'Firebase'],
                         role: 'Frontend Engineer',
-                        detail: '실시간 데이터가 필요한 프로젝트로, Firebase를 이용해 빠른 프로토타이핑과 배포를 진행했습니다.'
+                        detail: '실시간 데이터가 필요한 프로젝트로, Firebase를 이용해 빠른 프로토타이핑과 배포를 진행했습니다.',
+                        links: {
+                            github: 'https://github.com/B0XERCAT/four-letters-quiz',
+                            live: 'https://fourlettersquizz.web.app'
+                        }
                     }
                 ]
             }

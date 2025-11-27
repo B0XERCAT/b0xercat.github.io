@@ -542,6 +542,42 @@ body.modal-open {
     color: var(--accent-color);
 }
 
+.modal-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.modal-link-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.modal-link-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+}
+
+.modal-link-icon:hover,
+.modal-link-icon:focus-visible {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    outline: none;
+}
+
+.modal-link-icon.is-hidden {
+    display: none;
+}
+
 .modal-actions {
     margin-top: auto;
 }
