@@ -78,9 +78,18 @@ body {
     max-width: 800px;
 }
 
+.hero-media {
+    margin-bottom: 40px;
+}
+
+.hero-media img {
+    width: 40%;
+    object-fit: cover;
+}
+
 .hero-title {
-    font-size: clamp(48px, 8vw, 120px);
-    font-weight: 500;
+    font-size: clamp(42px, 7vw, 105px);
+    font-weight: 400;
     line-height: 1.1;
     margin-bottom: 30px;
     letter-spacing: -2px;

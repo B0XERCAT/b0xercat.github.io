@@ -13,6 +13,11 @@ const DOMRenderer = {
         
         hero.innerHTML = `
             <div class="hero-content">
+                ${data.image ? `
+                    <div class="hero-media">
+                        <img src="${data.image}" alt="${data.title.join(' ')} 대표 이미지" />
+                    </div>
+                ` : ''}
                 <div class="hero-text">
                     <h1 class="hero-title">
                         ${data.title.map(line => `<span class="line">${line}</span>`).join('')}
