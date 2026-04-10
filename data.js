@@ -4,7 +4,7 @@ const portfolioData = {
     id: "home",
     title: ["안녕하세요!"],
     description:
-      "작은 순간에 몰입하고, 소소한 성장을 쌓아가는 개발자 권서진입니다.",
+      "작은 순간에 몰입하고 , 소소한 성장을 쌓아가는 개발자 권서진입니다.",
     image: "./images/cat.jpeg",
   },
   sections: [
